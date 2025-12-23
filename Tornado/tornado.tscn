@@ -1,0 +1,164 @@
+[gd_scene load_steps=24 format=3 uid="uid://bcbqr4d8tac32"]
+
+[ext_resource type="ArrayMesh" uid="uid://drl4al8jb3ekw" path="res://Tornado/tornado_mesh.obj" id="1_8n7k7"]
+[ext_resource type="Shader" uid="uid://ckp74fqd84m5k" path="res://Tornado/shader_tornado.tres" id="1_8xr81"]
+[ext_resource type="Texture2D" uid="uid://bjk4geeimg2ck" path="res://Tornado/Turbulence_09-128x128.png" id="2_67sl5"]
+[ext_resource type="ArrayMesh" uid="uid://bur7a4jwb3u5s" path="res://Tornado/wave.obj" id="4_67sl5"]
+[ext_resource type="Shader" uid="uid://ckoh24w65vqik" path="res://Tornado/dissolver_shader.tres" id="4_wfuqy"]
+[ext_resource type="Texture2D" uid="uid://c4etdk5g1ex0x" path="res://Tornado/Turbulence_08-128x128.png" id="5_8qmop"]
+
+[sub_resource type="Gradient" id="Gradient_8xr81"]
+offsets = PackedFloat32Array(0.060465116, 0.1627907, 0.90697676, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_67sl5"]
+gradient = SubResource("Gradient_8xr81")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_67sl5"]
+offsets = PackedFloat32Array(0, 0.2993197, 0.5578231, 1)
+colors = PackedColorArray(0.31764707, 0.4509804, 0.77254903, 0, 0.3194667, 0.4496193, 0.7718015, 1, 0.3194667, 0.4496193, 0.7718015, 1, 3.538639, 5.51065, 16.990576, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_f1et6"]
+gradient = SubResource("Gradient_67sl5")
+use_hdr = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f1et6"]
+render_priority = 0
+shader = ExtResource("1_8xr81")
+shader_parameter/Speed_XY = Vector2(-0.5, 1)
+shader_parameter/Base_Texture = ExtResource("2_67sl5")
+shader_parameter/SubstractionTexture = SubResource("GradientTexture2D_67sl5")
+shader_parameter/TornadoColor = SubResource("GradientTexture1D_f1et6")
+shader_parameter/Opacity = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4rrpl"]
+render_priority = 0
+shader = ExtResource("4_wfuqy")
+shader_parameter/BaseTexture = ExtResource("5_8qmop")
+
+[sub_resource type="Curve" id="Curve_pi6m2"]
+_data = [Vector2(0, 0.20747954), 0.0, 0.0, 0, 0, Vector2(0.53825855, 0.633709), 1.3461746, 1.3461746, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_fk4mk"]
+texture_mode = 1
+curve = SubResource("Curve_pi6m2")
+
+[sub_resource type="Gradient" id="Gradient_q0pct"]
+offsets = PackedFloat32Array(0, 0.2993197, 0.5578231, 1)
+colors = PackedColorArray(0.31764707, 0.4509804, 0.77254903, 1, 0.3194667, 0.4496193, 0.7718015, 1, 0.3194667, 0.4496193, 0.7718015, 1, 3.538639, 5.51065, 16.990576, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wbao6"]
+gradient = SubResource("Gradient_q0pct")
+use_hdr = true
+
+[sub_resource type="Curve" id="Curve_pwvww"]
+_data = [Vector2(0, 0.22745907), 0.0, 0.0, 0, 0, Vector2(1, 0.8201844), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_q7iyv"]
+curve = SubResource("Curve_pwvww")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f1et6"]
+particle_flag_rotate_y = true
+angle_min = -179.99998
+angle_max = 180.00002
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_max = 3.0
+angular_velocity_min = 249.99998
+angular_velocity_max = 399.99997
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_q7iyv")
+color = Color(0.72480077, 0.72480077, 0.72480065, 1)
+color_ramp = SubResource("GradientTexture1D_wbao6")
+alpha_curve = SubResource("CurveTexture_fk4mk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tk8qa"]
+particle_flag_rotate_y = true
+angle_min = -179.99998
+angle_max = 180.00002
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_max = 3.0
+angular_velocity_min = 349.99997
+angular_velocity_max = 499.99997
+gravity = Vector3(0, 0, 0)
+scale_min = 4.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_q7iyv")
+color = Color(0.72480077, 0.72480077, 0.72480065, 1)
+color_ramp = SubResource("GradientTexture1D_wbao6")
+alpha_curve = SubResource("CurveTexture_fk4mk")
+
+[sub_resource type="Animation" id="Animation_wfuqy"]
+resource_name = "spin"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TornadoMesh:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.2831855, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8qmop"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TornadoMesh:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4rrpl"]
+_data = {
+&"RESET": SubResource("Animation_8qmop"),
+&"spin": SubResource("Animation_wfuqy")
+}
+
+[node name="Tornado" type="Node3D"]
+
+[node name="TornadoMesh" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_f1et6")
+cast_shadow = 0
+mesh = ExtResource("1_8n7k7")
+
+[node name="BottomWaves" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09144211, 0, 0)
+material_override = SubResource("ShaderMaterial_4rrpl")
+cast_shadow = 0
+lifetime = 0.5
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_f1et6")
+draw_pass_1 = ExtResource("4_67sl5")
+
+[node name="TopWaves" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09144211, 7.2854843, 0)
+material_override = SubResource("ShaderMaterial_4rrpl")
+cast_shadow = 0
+lifetime = 0.5
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_tk8qa")
+draw_pass_1 = ExtResource("4_67sl5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4rrpl")
+}
+autoplay = "spin"
